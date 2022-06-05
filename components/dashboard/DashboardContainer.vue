@@ -75,14 +75,59 @@
 
     <v-row>
       <v-col align="start" class="pa-10 text-h5" cols="auto">
-        <b>Inventory Report</b>
+        <b>Submitted Reports</b>
       </v-col>
+     
       <v-spacer></v-spacer>
     </v-row>
+    <v-row>
+      <v-col>
+         <div class="px-10">
+        <v-text-field outlined v-model="search" placeholder="Search"></v-text-field>
+      </div>
+      </v-col>
+      <v-col>
+         <div class="px-10">
+             <v-menu
+          class="pa-0"
+          ref="eventDate"
+          v-model="eventDate"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+            hide-details=""
+              v-model="date"
+              outlined
+              label="Date"
+              persistent-hint
+              v-bind="attrs"
+              @blur="date = date"
+              v-on="on"
+              append-icon="mdi-close"
+               @click:append="resetDate"
+
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            @change="changeDate"
+            v-model="date"
+            no-title
+            range
+          ></v-date-picker>
+        </v-menu>
+      </div>
+      </v-col>
+    </v-row>
     <v-data-table
+      :search="search"
       class="pa-5"
       :headers="headers"
-      :items="events"
+      :items="items_all"
       :loading="isLoading"
     >
       <template v-slot:[`item.status`]="{ item }">
@@ -141,30 +186,45 @@ export default {
   },
   data() {
     return {
+      items_all:[],
       buttonLoad: false,
       account_type: "",
       deleteConfirmation: false,
       selectedItem: [],
       events: [],
+      date:[],
       selectedItem: {},
       isLoading: false,
       users: [],
       dialogAdd: false,
       isAdd: true,
+      search:'',
       replyDialog: false,
       headers: [
-        { text: "ID", value: "id" },
-        { text: "Message", value: "message" },
-        { text: "Status", value: "status" },
-        { text: "Is Viewed?", value: "is_viewed" },
-        { text: "Is Replied?", value: "is_replied" },
+        { text: "Date", value: "date" },
+        { text: "Ticket Number", value: "id" },
+        { text: "Email", value: "email" },
+        { text: "Title", value: "title" },
         { text: "Actions", value: "opt" },
         ,
       ],
     };
   },
   methods: {
-    async reply() {
+    resetDate(){
+      this.items_all = this.events
+      this.date=[]
+    },
+     changeDate(){
+          this.items_all = []
+           for(let key in this.events){
+          if(new Date(this.date[0])<=new Date(this.events[key].date) && new Date(this.date[1])>=new Date(this.events[key].date)){
+             this.items_all.push(this.events[key])
+           
+          }
+        } 
+      },
+    async reply() { 
       this.loading = true;
       var params = {
         report_id: this.selectedItem.id,
@@ -261,6 +321,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.events = res.data;
+          this.items_all = res.data
           this.isLoading = false;
         });
     },
