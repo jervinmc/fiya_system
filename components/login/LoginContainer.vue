@@ -35,7 +35,7 @@
     </v-snackbar>
   
 
-    <v-card height="500" style="overflow:scroll" width="700" class="rounded-xl" elevation="12" >
+    <v-card  width="700" class="rounded-xl" elevation="12" >
       <div
         style="background-color: #f0fcec; color: black"
         align="center"
