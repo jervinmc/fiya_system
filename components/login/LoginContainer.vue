@@ -166,8 +166,15 @@ export default {
   },
   methods: {
      async login() {
-       window.location.href="/dashboard"
+       if(this.users.email=='admin@email.com' && this.users.password=='wew123WEW'){
+          window.location.href="/dashboard"
        return
+       }
+       else{
+         alert('Incorrect Credentials')
+         return
+       }
+      
          if(this.users.email=='admin'){
              localStorage.setItem('account_type','admin')
              window.location.href="/admin/otp"

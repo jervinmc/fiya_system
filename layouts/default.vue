@@ -28,6 +28,7 @@
     v-if="$route.name!='index'"
       :clipped-left="clipped"
       fixed
+      color="#068935"
       app
     >
     <v-spacer></v-spacer>
