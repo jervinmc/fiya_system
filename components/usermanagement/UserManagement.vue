@@ -75,7 +75,7 @@
 
     <v-row>
       <v-col align="start" class="pa-10 text-h5" cols="auto">
-        <b>Submitted Reports</b>
+        <b>Usermanagement</b>
       </v-col>
      
       <v-spacer></v-spacer>
@@ -86,7 +86,7 @@
         <v-text-field outlined v-model="search" placeholder="Search"></v-text-field>
       </div>
       </v-col>
-      <v-col>
+      <!-- <v-col>
          <div class="px-10">
              <v-menu
           class="pa-0"
@@ -121,7 +121,7 @@
           ></v-date-picker>
         </v-menu>
       </div>
-      </v-col>
+      </v-col> -->
     </v-row>
     <v-data-table
       :search="search"
@@ -201,12 +201,9 @@ export default {
       search:'',
       replyDialog: false,
       headers: [
-        { text: "Date", value: "date" },
-        { text: "Ticket Number", value: "id" },
+        { text: "ID", value: "id" },
         { text: "Email", value: "email" },
-        { text: "Category", value: "category" },
-        { text: "Title", value: "title" },
-        { text: "Actions", value: "opt" },
+        // { text: "Actions", value: "opt" },
         ,
       ],
     };
@@ -314,7 +311,7 @@ export default {
     async eventsGetall() {
       this.isLoading = true;
       const res = await this.$axios
-        .get(`/report/`, {
+        .get(`/users/`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
