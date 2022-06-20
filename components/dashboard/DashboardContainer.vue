@@ -4,7 +4,7 @@
       <v-card class="pa-10">
         <div align="center" class="text-h6">Confirmation</div>
         <div align="center" class="pa-10">
-          Are you sure you want to delete this item?
+          Are you sure you want to close this ticket?
         </div>
         <v-card-actions>
           <v-row align="center">
@@ -43,8 +43,17 @@
             </v-col>
           </v-row>
         </div>
-        <div align="center">Reply</div>
-        <div>
+
+        <div align="center">Replies :</div>
+        <div v-for="x in replyList" :key="x"> 
+            {{x.message}}
+          
+          <v-divider>
+            
+          </v-divider>
+           
+        </div>
+        <div class="pt-10">
           <v-row>
             <div>Message</div>
             <v-col cols="12">
@@ -169,7 +178,7 @@
             </v-list-item>
             <v-list-item @click.stop="deleteItem(item)">
               <v-list-item-content>
-                <v-list-item-title>Delete</v-list-item-title>
+                <v-list-item-title>Close the ticket</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -186,6 +195,7 @@ export default {
   },
   data() {
     return {
+      replyList:[],
       items_all:[],
       buttonLoad: false,
       account_type: "",
@@ -243,9 +253,19 @@ export default {
       this.replyDialog = false;
       this.loadData();
     },
-    replyItem(item) {
+   async replyItem(item) {
       this.selectedItem = item;
       this.replyDialog = true;
+     var res =  await this.$axios
+        .get(`/respo_list/${this.selectedItem.id}/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+            this.replyList = res.data
+        });
+      
     },
     getColorStatus(item) {
       if (item == "Pending") {
@@ -259,7 +279,9 @@ export default {
     async deleteValue() {
       this.buttonLoad = true;
       this.$axios
-        .delete(`/report/${this.selectedItem.id}/`, {
+        .patch(`/report/${this.selectedItem.id}/`,{
+          "title":"Closed ticket"
+        }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -267,7 +289,7 @@ export default {
         .then(() => {
           this.deleteConfirmation = false;
           this.buttonLoad = false;
-          alert("Successfully Deleted!");
+          alert("Successfully Closed");
           this.loadData();
         });
     },

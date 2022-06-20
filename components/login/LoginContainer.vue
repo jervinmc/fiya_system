@@ -41,7 +41,7 @@
         align="center"
         class="pa-5"
       >
-        Login Form 
+       Welcome to FIYA!
       </div>
       <div align="start" class="pa-5" v-if="category!='login'" @click="category='login'" style="cursor:pointer">
               <v-icon color="black">mdi-arrow-left</v-icon>

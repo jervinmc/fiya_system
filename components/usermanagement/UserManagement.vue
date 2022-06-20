@@ -75,7 +75,7 @@
 
     <v-row>
       <v-col align="start" class="pa-10 text-h5" cols="auto">
-        <b>Usermanagement</b>
+        <b>Registered Users</b>
       </v-col>
      
       <v-spacer></v-spacer>

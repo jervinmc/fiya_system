@@ -36,7 +36,7 @@
       <v-icon color="white">mdi-graph</v-icon>  <b @click="goReport" style="padding-top:10px">Reports</b>
     </div>
     <div class="white--text mr-5" style="cursor:pointer">
-      <v-icon color="white">mdi-account</v-icon>  <b @click="goUsermanagement" style="padding-top:10px">Usermanagement</b>
+      <v-icon color="white">mdi-account</v-icon>  <b @click="goUsermanagement" style="padding-top:10px">Users</b>
     </div>
     <v-btn  @click="logout">Logout</v-btn>
     </v-app-bar>
