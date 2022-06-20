@@ -45,7 +45,11 @@
         </div>
 
         <div align="center">Replies :</div>
+     
         <div v-for="x in replyList" :key="x"> 
+             <div>
+         <b> {{x.account_type=='You' ? 'Client' : 'Admin'}}</b>
+        </div>
             {{x.message}}
           
           <v-divider>
@@ -241,6 +245,7 @@ export default {
         report_id: this.selectedItem.id,
         message: this.events.reply,
         is_respo: "yes",
+        account_type: "Admin",
         status: "",
       };
       var params1 = {
