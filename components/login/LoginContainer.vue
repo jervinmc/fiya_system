@@ -165,30 +165,7 @@ export default {
     }
   },
   methods: {
-     async login() {
-       if(this.users.email=='admin@email.com' && this.users.password=='wew123WEW'){
-          window.location.href="/dashboard"
-       return
-       }
-       else{
-         alert('Incorrect Credentials')
-         return
-       }
-      
-         if(this.users.email=='admin'){
-             localStorage.setItem('account_type','admin')
-             window.location.href="/admin/otp"
-             
-         }
-         else if(this.users.email=='head'){
-              localStorage.setItem('account_type','head')
-             window.location.href="/dashboard"
-         }
-         else{
-            localStorage.setItem('account_type','student')
-             window.location.href="/student/dashboard"
-         }
-        //  window.location.href="dashboard"
+      async login() {
       this.isLoaded = true;
       var credentials = {
         email: this.users.email,
@@ -212,14 +189,7 @@ export default {
             localStorage.setItem("id", response.data[0].id);
             localStorage.setItem("account_type", response.data[0].account_type);
             // console.log(response)
-            if(response.data[0].account_type=='Admin'){
-                window.location.href="/admin/dashboard"
-            }
-            else{
-             
-                window.location.href="/artist/design"
-            }
-           
+              window.location.href="/dashboard"
             // const users = this.$axios
             //   .get(`/users/details/`, {
             //     headers: {

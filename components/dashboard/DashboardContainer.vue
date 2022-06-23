@@ -92,6 +92,13 @@
       </v-col>
      
       <v-spacer></v-spacer>
+      <v-col align-self="center">
+          <JsonExcel :data="items_all">
+                <div class="text-6 pl-5" style="cursor:pointer">
+                  <b>Export to Excel</b>
+                </div>
+          </JsonExcel>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -193,7 +200,11 @@
 </template>
 
 <script>
+import JsonExcel from "vue-json-excel";
 export default {
+components:{
+    JsonExcel
+  },
   created() {
     this.loadData();
   },
