@@ -154,7 +154,7 @@ export default {
         // { text: "Firstname", value: "firstname" },
         { text: "Account Type", value: "account_type" },
         { text: "Email", value: "email" },
-        // { text: "Status", value: "status" },
+        { text: "Status", value: "status" },
         { text: "Action", value: "opt" },
         ,
       ],

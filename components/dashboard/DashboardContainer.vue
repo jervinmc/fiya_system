@@ -142,6 +142,33 @@
         </v-menu>
       </div>
       </v-col>
+        <v-col>
+         <div class="px-10">
+        <v-select @change="filterCategory" outlined v-model="category" placeholder="Select offices/department"
+        :items="['All','College of Agriculture, Food, Environment and Natural Resources',
+            'College of Arts and Sciences',
+            'College of Criminal Justice',
+            'College of Economics, Management and Development Studies',
+            'College of Education',
+            'College of Engineering and Information Technology',
+            'College of Nursing',
+            'College of Sports, Physical Education and Recreation',
+            'College of Veterinary Medicine and Biomedical Sciences',
+            'Office of the Student Affairs and Services',
+            'University Infirmary',
+            'University Library',
+            'University Marketing Center',
+            'University Registrar',
+                    ]"
+                  ></v-select>
+                  
+      </div>
+      </v-col>
+      <v-col>
+        <v-select @change="filterCategory" outlined v-model="category" placeholder="Select Category"
+        :items="['Closed ticket','All']"
+                  ></v-select>
+      </v-col>
     </v-row>
     <v-data-table
       :search="search"
@@ -210,6 +237,7 @@ components:{
   },
   data() {
     return {
+      category:'',
       replyList:[],
       items_all:[],
       buttonLoad: false,
@@ -231,12 +259,26 @@ components:{
         { text: "Email", value: "email" },
         { text: "Category", value: "category" },
         { text: "Title", value: "title" },
+        { text: "Updated by", value: "updated_by" },
         { text: "Actions", value: "opt" },
         ,
       ],
     };
   },
   methods: {
+    filterCategory(){
+       this.items_all = []
+      if(this.category=='All') {
+        this.items_all = this.events
+        return;
+      }
+      if(this.category=='Closed ticket') {
+           this.items_all = this.events.filter(data=>data.title==this.category)
+        return;
+      }
+       
+        this.items_all = this.events.filter(data=>data.category==this.category)
+    },
     resetDate(){
       this.items_all = this.events
       this.date=[]
@@ -296,7 +338,8 @@ components:{
       this.buttonLoad = true;
       this.$axios
         .patch(`/report/${this.selectedItem.id}/`,{
-          "title":"Closed ticket"
+          "title":"Closed ticket",
+          "updated_by":localStorage.getItem('email'),
         }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

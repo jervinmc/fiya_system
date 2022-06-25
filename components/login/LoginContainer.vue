@@ -175,19 +175,25 @@ export default {
         var response = await this.$axios
           .post("login/", credentials)
           .then((response) => {
-             if(response.data[0].status=='Deactivated'){
-                alert("Your account is still deactivated. Please wait to approved by the admin.")
-                   this.isLoaded = false;
-                return
-              }
+            //  if(response.data[0].status=='Deactivated'){
+            //     alert("Your account is still deactivated. Please wait to approved by the admin.")
+            //        this.isLoaded = false;
+            //     return
+            //   }
             if(response.data=='no_data'){
                 alert('Wrong Credentials')
                 this.isLoaded=false;
                 return
             }
+            if(response.data[0].status!='Activated'){
+              alert("Your account is deactivated.")
+              this.isLoaded=false;
+              return
+            }
             console.log(response.data)
             localStorage.setItem("id", response.data[0].id);
             localStorage.setItem("account_type", response.data[0].account_type);
+            localStorage.setItem("email", response.data[0].email);
             // console.log(response)
               window.location.href="/dashboard"
             // const users = this.$axios

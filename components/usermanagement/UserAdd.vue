@@ -30,7 +30,7 @@
         <v-col cols="12" class="px-0">
         <div>Account Type</div>
         <div>
-        <v-select outlined v-model="events.account_type" :items="['Admin','Super Admin']"></v-select>
+        <v-select outlined v-model="events.account_type" :items="['Client','Admin','Super Admin']"></v-select>
         </div>
       </v-col>
        <v-col cols="12" class="px-0">
