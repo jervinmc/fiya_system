@@ -260,6 +260,7 @@ components:{
         { text: "Category", value: "category" },
         { text: "Title", value: "title" },
         { text: "Updated by", value: "updated_by" },
+        { text: "Account Type", value: "account_type" },
         { text: "Actions", value: "opt" },
         ,
       ],
@@ -298,7 +299,7 @@ components:{
         report_id: this.selectedItem.id,
         message: this.events.reply,
         is_respo: "yes",
-        account_type: "Admin",
+        account_type: localStorage.getItem('account_type'),
         status: "",
       };
       var params1 = {

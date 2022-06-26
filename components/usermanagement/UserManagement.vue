@@ -67,7 +67,7 @@
     <v-data-table
       class="pa-5"
       :search="search"
-      :headers="headers"
+      :headers="user_type=='Super Admin' ? headers : admin_headers"
       :items="events"
       :loading="isLoading"
     >
@@ -148,6 +148,7 @@ export default {
       users: [],
       dialogAdd:false,
       isCategory:false,
+      user_type:'',
       isAdd:true,
       headers: [
         { text: "ID", value: "id" },
@@ -155,7 +156,15 @@ export default {
         { text: "Account Type", value: "account_type" },
         { text: "Email", value: "email" },
         { text: "Status", value: "status" },
-       this.account_type !='Admin' ?? { text: "Action", value: "opt" } ,
+       { text: "Action", value: "opt" } ,
+        ,
+      ],
+      admin_headers: [
+        { text: "ID", value: "id" },
+        // { text: "Firstname", value: "firstname" },
+        { text: "Account Type", value: "account_type" },
+        { text: "Email", value: "email" },
+        { text: "Status", value: "status" },
         ,
       ],
     };
