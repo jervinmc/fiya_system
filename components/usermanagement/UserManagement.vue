@@ -260,6 +260,7 @@ export default {
       this.isAdd=false
     },
     addItem(){
+      this.selectedItem ={}
       this.isAdd=true
       this.dialogAdd=true
     },
