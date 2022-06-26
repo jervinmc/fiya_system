@@ -155,7 +155,7 @@ export default {
         { text: "Account Type", value: "account_type" },
         { text: "Email", value: "email" },
         { text: "Status", value: "status" },
-        { text: "Action", value: "opt" },
+       this.account_type !='Admin' ?? { text: "Action", value: "opt" } ,
         ,
       ],
     };
